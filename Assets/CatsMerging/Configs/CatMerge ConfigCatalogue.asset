@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77a2de24fb72e3945bf6d4b560825523, type: 3}
+  m_Name: CatMerge ConfigCatalogue
+  m_EditorClassIdentifier: 
+  _gameConfig: {fileID: 11400000, guid: 5597643e8c910464b8cd66ccdfaa18b2, type: 2}
+  _inputConfig: {fileID: 11400000, guid: 5eaa871d6f17ef34889ad13b5093e605, type: 2}
+  _animConfig: {fileID: 11400000, guid: e783286e92afef34190d46cc5ab12d5f, type: 2}
