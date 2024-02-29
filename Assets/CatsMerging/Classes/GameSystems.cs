@@ -5,9 +5,13 @@ namespace Assets.CatsMerging.Classes
     internal class GameSystems : Systems 
     {
         public GameSystems(IConfigCatalogue configCatalogue)
-        {
-            Add(new BoardSpawn(configCatalogue));
+        {  
+            //Core Mechanics
             Add(new InputRead(configCatalogue));
+            Add(new MoveElements(configCatalogue));
+
+            //Gameplay 
+            Add(new BoardSpawn(configCatalogue));
         }
     }
 }

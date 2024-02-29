@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: CatMerge GameConfig
   m_EditorClassIdentifier: 
   _boardSize: {x: 4, y: 4}
-  _startPlayableCount: 12
+  _startPlayableCount: 2

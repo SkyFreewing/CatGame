@@ -25,7 +25,6 @@ namespace CatMerge
         {
             var boardObject = new GameObject("Board");
             var tileList = new List<BoardTile>();
-            var moveElements = boardObject.AddComponent<MoveElements>();
 
             
             for (int i = 1; i <= boardSize.x; i++)
@@ -36,7 +35,7 @@ namespace CatMerge
                     newTile.transform.parent = boardObject.transform;                    
 
                     var bt = newTile.AddComponent<BoardTile>();
-                    moveElements.Tiles.Add(bt);
+                    MoveElements.Tiles.Add(bt);
                     bt.IsOccupied = false;
                     bt.SetPosition(new Vector3(j, i, 0));
 
@@ -59,7 +58,7 @@ namespace CatMerge
 
                 var pl = newPlayable.GetComponent<Playable>();
                 pl.SetPosition(spawnTile.transform.position + Vector3.back, 0f);
-                moveElements.Movables.Add(pl);
+                MoveElements.Movables.Add(pl);
                 pl.Tile = spawnTile;
             }         
         }

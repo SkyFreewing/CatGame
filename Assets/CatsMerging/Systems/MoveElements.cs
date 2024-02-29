@@ -5,20 +5,20 @@ using CatMerge;
 
 namespace CatMerge
 {
-    internal class MoveElements : MonoBehaviour, IInputChangedListener
+    internal class MoveElements : ISystem, IInputChangedListener
     {
-        public List<IMovable> Movables =  new List<IMovable>();
-        public List<ITile> Tiles = new List<ITile>();
+        //TODO: Replace evil statics with some global containers for types
+        public static List<IMovable> Movables =  new List<IMovable>();
+        public static List<ITile> Tiles = new List<ITile>();
 
         float _movementDuration;
 
-        void OnEnable () => InputChangedEvent.AddListener(this);
-        void OnDisable() => InputChangedEvent.RemoveListener(this);
-
-        void Start() 
+        public MoveElements(IConfigCatalogue configs)
         {
-            _movementDuration = AppController.GlobalConfigCatalogue.AnimConfig.MovableAnimationDuration;
-        }
+            _movementDuration = configs.AnimConfig.MovableAnimationDuration;
+
+            InputChangedEvent.AddListener(this);
+        }    
         
         public void OnInputChanged(object e, Vector2 input)
         {
