@@ -142,8 +142,6 @@ namespace CatMerge
 
             foreach (var targetPair in movableTargetTiles) 
             {
-                //TODO: Extract merge mechanic to Views only set bools here
-
                 var movable = targetPair.Key;
                 var targetTile = targetPair.Value;
 

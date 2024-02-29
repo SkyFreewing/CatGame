@@ -9,16 +9,13 @@ namespace CatMerge
     public class AppController : MonoBehaviour
     {
         public ConfigCatalogue ConfigCatalogue;
-        public static ConfigCatalogue GlobalConfigCatalogue;
 
         Systems GameSystems;
 
         void Start()
         {
             if (ConfigCatalogue == null)
-                ConfigCatalogue = new ConfigCatalogue();
-
-            GlobalConfigCatalogue = ConfigCatalogue;
+                ConfigCatalogue = new ConfigCatalogue();;
 
             //DOTween
             DOTween.Init();
