@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace CatMerge
 {
-    internal class InputRead : IExecuteSystem
+    internal class InputReadSystem : IExecuteSystem
     {
         float _inputCorrectnessThreshold;
         float _inputMinimumDistance;
@@ -13,7 +13,7 @@ namespace CatMerge
 
         InputChangedEvent _inputChangedEvent;
 
-        public InputRead(IConfigCatalogue configs)
+        public InputReadSystem(IConfigCatalogue configs)
         {
             _inputCorrectnessThreshold = configs.InputConfig.SwipeCorrectnessThreshold;
             _inputMinimumDistance = configs.InputConfig.SwipeMinimumDistance;

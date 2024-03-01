@@ -7,11 +7,11 @@ namespace Assets.CatsMerging.Classes
         public GameSystems(IConfigCatalogue configCatalogue)
         {  
             //Core Mechanics
-            Add(new InputRead(configCatalogue));
-            Add(new MoveElements(configCatalogue));
+            Add(new InputReadSystem(configCatalogue));
+            Add(new MoveElementsSystem(configCatalogue));
 
             //Gameplay 
-            Add(new BoardSpawn(configCatalogue));
+            Add(new BoardSpawnSystem(configCatalogue));
         }
     }
 }

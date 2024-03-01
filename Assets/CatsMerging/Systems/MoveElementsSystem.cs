@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using CatMerge;
 
 namespace CatMerge
 {
-    internal class MoveElements : ISystem, IInputChangedListener
+    internal class MoveElementsSystem : ISystem, IInputChangedListener
     {
         //TODO: Replace evil statics with some global containers for types
         public static List<IMovable> Movables =  new List<IMovable>();
@@ -13,11 +12,15 @@ namespace CatMerge
 
         float _movementDuration;
 
-        public MoveElements(IConfigCatalogue configs)
+        MoveCompletedEvent _moveCompletedEvent;
+
+        public MoveElementsSystem(IConfigCatalogue configs)
         {
             _movementDuration = configs.AnimConfig.MovableAnimationDuration;
 
             InputChangedEvent.AddListener(this);
+
+            _moveCompletedEvent = new MoveCompletedEvent();
         }    
         
         public void OnInputChanged(object e, Vector2 input)
@@ -159,6 +162,8 @@ namespace CatMerge
             {
                 movable.GradeIndex++;
             }
+
+            _moveCompletedEvent.OnMoveCompleted();
         }
     }
 }

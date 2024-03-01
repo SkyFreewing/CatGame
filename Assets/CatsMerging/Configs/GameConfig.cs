@@ -7,8 +7,10 @@ namespace CatMerge
     {
         [SerializeField] Vector2 _boardSize;
         [SerializeField] int _startPlayableCount;
+        [SerializeField] int _spawnPlayableCount;
 
         public Vector2 BoardSize => _boardSize;
         public int StartPlayableCount => _startPlayableCount;
+        public int SpawnPlayableCount => _spawnPlayableCount;
     }
 }
