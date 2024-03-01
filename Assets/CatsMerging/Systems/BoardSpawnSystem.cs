@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem.EnhancedTouch;
+using UnityEngine.UIElements;
 
 namespace CatMerge
 {
@@ -30,8 +31,8 @@ namespace CatMerge
        
         public void Startup()
         {
-            _boardObject = new GameObject("Board");           
-           
+            _boardObject = new GameObject("Board");
+
             for (int i = 1; i <= _boardSize.x; i++)
             {
                 for (int j = 1; j <= _boardSize.y; j++) 
@@ -55,7 +56,7 @@ namespace CatMerge
             {
                 var prefab = Resources.Load(prefabPath);
                 var newPlayable = GameObject.Instantiate(prefab) as GameObject;
-                var unoccupiedTiles = _tileList.Where(x => x.IsOccupied == false).ToList();
+                var unoccupiedTiles = _tileList.Where(x => !x.IsOccupied).ToList();
                 var spawnTile = unoccupiedTiles[Random.Range(0, unoccupiedTiles.Count - 1)];
 
                 newPlayable.transform.parent = _boardObject.transform; 
@@ -74,7 +75,7 @@ namespace CatMerge
             {
                 var prefab = Resources.Load(prefabPath);
                 var newPlayable = GameObject.Instantiate(prefab) as GameObject;
-                var unoccupiedTiles = _tileList.Where(x => x.IsOccupied == false).ToList();
+                var unoccupiedTiles = _tileList.Where(x => !x.IsOccupied).ToList();
                 var spawnTile = unoccupiedTiles[Random.Range(0, unoccupiedTiles.Count - 1)];
 
                 newPlayable.transform.parent = _boardObject.transform;

@@ -150,7 +150,6 @@ namespace CatMerge
 
                 movable.Tile.IsOccupied = false;
                 movable.Tile = targetTile;
-                targetTile.IsOccupied = true;
 
                 movable.SetPosition(targetTile.Position + Vector3.back, _movementDuration);
 
@@ -158,10 +157,11 @@ namespace CatMerge
                     Movables.Remove(movable);                
             }
 
+            foreach (var targetPair in movableTargetTiles) 
+                targetPair.Value.IsOccupied = true;
+
             foreach (var movable in mergeTargets) 
-            {
                 movable.GradeIndex++;
-            }
 
             _moveCompletedEvent.OnMoveCompleted();
         }
