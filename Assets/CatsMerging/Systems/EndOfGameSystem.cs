@@ -22,13 +22,16 @@ namespace CatMerge
 
         public void OnAnyMerge(object e, int input)
         {
-            _currentHighestIndex = (int)MathF.Max(input, _currentHighestIndex);
-
-            if (_currentHighestIndex >= _highestIndexNeededToWin) 
+            if (_currentHighestIndex < input)
             {
-                Debug.Log(">>>> Congrats! You have won the game! <<<<");
+                _currentHighestIndex = input;
 
-                _gameplayBlockerAddedEvent.OnGameplayBlockerAdded(this);
+                if (_currentHighestIndex >= _highestIndexNeededToWin)
+                {
+                    Debug.Log(">>>> Congrats! You have won the game! <<<<");
+
+                    _gameplayBlockerAddedEvent.OnGameplayBlockerAdded(this);
+                }
             }
         }
 
