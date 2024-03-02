@@ -1,16 +1,22 @@
 using Assets.CatsMerging.Classes;
 using DG.Tweening;
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace CatMerge
 {
-    public class AppController : MonoBehaviour
+    public class AppController : MonoBehaviour, IAnyGameplayBlockersListener
     {
         public ConfigCatalogue ConfigCatalogue;
 
         Systems GameSystems;
+        bool _pauseGame;
+
+        void Awake() 
+        {
+            AnyGameplayBlockersEvent.AddListener(this);
+        }
 
         void Start()
         {
@@ -30,7 +36,10 @@ namespace CatMerge
         void Update()
         {
             //Feature execute loops here
-            GameSystems.Execute();
+            if(!_pauseGame)
+                GameSystems.Execute();
         }
+
+        public void OnAnyGameplayBlockers(object e, List<IGameplayBlocker> blockers) => _pauseGame = blockers.Any();
     }
 }
