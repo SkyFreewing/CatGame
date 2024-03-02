@@ -20,6 +20,8 @@ namespace CatMerge
         GameObject _boardObject;
         List<BoardTile> _tileList = new List<BoardTile>();
 
+        GameLostEvent _gameLostEvent;
+
         public BoardSpawnSystem(IConfigCatalogue configs)
         {
             _boardSize = configs.GameConfig.BoardSize;
@@ -27,6 +29,8 @@ namespace CatMerge
             _spawnPlayablesCount = configs.GameConfig.SpawnPlayableCount;
 
             MoveCompletedEvent.AddListener(this);
+
+            _gameLostEvent = new GameLostEvent();
         }
        
         public void Startup()
@@ -53,38 +57,50 @@ namespace CatMerge
             }
 
             for (int i = 0; i < _startPlayablesCount; i++) 
-            {
-                var prefab = Resources.Load(prefabPath);
-                var newPlayable = GameObject.Instantiate(prefab) as GameObject;
+            {               
                 var unoccupiedTiles = _tileList.Where(x => !x.IsOccupied).ToList();
-                var spawnTile = unoccupiedTiles[Random.Range(0, unoccupiedTiles.Count - 1)];
 
-                newPlayable.transform.parent = _boardObject.transform; 
-                spawnTile.IsOccupied = true;
+                if (unoccupiedTiles.Any())
+                {
+                    var prefab = Resources.Load(prefabPath);
+                    var newPlayable = GameObject.Instantiate(prefab) as GameObject;
+                    var spawnTile = unoccupiedTiles[Random.Range(0, unoccupiedTiles.Count - 1)];
 
-                var pl = newPlayable.GetComponent<Playable>();
-                pl.SetPosition(spawnTile.transform.position + Vector3.back, 0f);
-                MoveElementsSystem.Movables.Add(pl);
-                pl.Tile = spawnTile;
+                    newPlayable.transform.parent = _boardObject.transform;
+                    spawnTile.IsOccupied = true;
+
+                    var pl = newPlayable.GetComponent<Playable>();
+                    pl.SetPosition(spawnTile.transform.position + Vector3.back, 0f);
+                    MoveElementsSystem.Movables.Add(pl);
+                    pl.Tile = spawnTile;
+                }
             }         
         }
 
         public void OnMoveCompleted(object e, bool flag)
         {
             for (int i = 0; i < _spawnPlayablesCount; i++)
-            {
-                var prefab = Resources.Load(prefabPath);
-                var newPlayable = GameObject.Instantiate(prefab) as GameObject;
+            {               
                 var unoccupiedTiles = _tileList.Where(x => !x.IsOccupied).ToList();
-                var spawnTile = unoccupiedTiles[Random.Range(0, unoccupiedTiles.Count - 1)];
 
-                newPlayable.transform.parent = _boardObject.transform;
-                spawnTile.IsOccupied = true;
+                if (unoccupiedTiles.Any())
+                {
+                    var prefab = Resources.Load(prefabPath);
+                    var newPlayable = GameObject.Instantiate(prefab) as GameObject;
+                    var spawnTile = unoccupiedTiles[Random.Range(0, unoccupiedTiles.Count - 1)];
 
-                var pl = newPlayable.GetComponent<Playable>();
-                pl.SetPosition(spawnTile.transform.position + Vector3.back, 0f);
-                MoveElementsSystem.Movables.Add(pl);
-                pl.Tile = spawnTile;
+                    newPlayable.transform.parent = _boardObject.transform;
+                    spawnTile.IsOccupied = true;
+
+                    var pl = newPlayable.GetComponent<Playable>();
+                    pl.SetPosition(spawnTile.transform.position + Vector3.back, 0f);
+                    MoveElementsSystem.Movables.Add(pl);
+                    pl.Tile = spawnTile;
+                }
+                else 
+                {
+                    _gameLostEvent.OnGameLost();
+                }
             }
         }
     }

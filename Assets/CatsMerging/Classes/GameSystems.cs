@@ -9,6 +9,7 @@ namespace Assets.CatsMerging.Classes
             //Core Mechanics
             Add(new InputReadSystem(configCatalogue));
             Add(new MoveElementsSystem(configCatalogue));
+            Add(new EndOfGameSystem(configCatalogue));
 
             //Gameplay 
             Add(new BoardSpawnSystem(configCatalogue));

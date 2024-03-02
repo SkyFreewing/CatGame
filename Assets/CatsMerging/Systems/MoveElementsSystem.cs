@@ -13,6 +13,7 @@ namespace CatMerge
         float _movementDuration;
 
         MoveCompletedEvent _moveCompletedEvent;
+        AnyMergeEvent _anyMergeEvent;
 
         public MoveElementsSystem(IConfigCatalogue configs)
         {
@@ -21,6 +22,7 @@ namespace CatMerge
             InputChangedEvent.AddListener(this);
 
             _moveCompletedEvent = new MoveCompletedEvent();
+            _anyMergeEvent = new AnyMergeEvent();
         }    
         
         public void OnInputChanged(object e, Vector2 input)
@@ -160,8 +162,11 @@ namespace CatMerge
             foreach (var targetPair in movableTargetTiles) 
                 targetPair.Value.IsOccupied = true;
 
-            foreach (var movable in mergeTargets) 
+            foreach (var movable in mergeTargets)
+            {
                 movable.GradeIndex++;
+                _anyMergeEvent.OnAnyMerge(movable.GradeIndex);
+            }
 
             _moveCompletedEvent.OnMoveCompleted();
         }

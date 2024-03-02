@@ -15,3 +15,4 @@ MonoBehaviour:
   _boardSize: {x: 4, y: 4}
   _startPlayableCount: 2
   _spawnPlayableCount: 1
+  _highestIndexToWin: 9

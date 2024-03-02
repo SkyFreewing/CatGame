@@ -7,5 +7,6 @@ namespace CatMerge
         Vector2 BoardSize { get; }
         int StartPlayableCount { get; }
         int SpawnPlayableCount { get; }
+        int HighestIndexToWin { get; }
     }
 }
