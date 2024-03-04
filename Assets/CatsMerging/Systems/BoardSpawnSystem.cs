@@ -14,8 +14,11 @@ namespace CatMerge
         const string prefabPath = "Prefabs/Playable";
 
         Vector2 _boardSize;
+        Vector3 _spawnStartScale;
         int _startPlayablesCount;
         int _spawnPlayablesCount;
+        float _spawnScaleDuration;
+        
 
         GameObject _boardObject;
         List<BoardTile> _tileList = new List<BoardTile>();
@@ -27,6 +30,8 @@ namespace CatMerge
             _boardSize = configs.GameConfig.BoardSize;
             _startPlayablesCount = configs.GameConfig.StartPlayableCount;
             _spawnPlayablesCount = configs.GameConfig.SpawnPlayableCount;
+            _spawnScaleDuration = configs.AnimConfig.SpawnScaleDuration;
+            _spawnStartScale = configs.AnimConfig.SpawnStartScale;
 
             MoveCompletedEvent.AddListener(this);
 
@@ -71,6 +76,7 @@ namespace CatMerge
 
                     var pl = newPlayable.GetComponent<Playable>();
                     pl.SetPosition(spawnTile.transform.position + Vector3.back, 0f);
+                    pl.SpawnAnimationPlay(_spawnStartScale, _spawnScaleDuration);
                     MoveElementsSystem.Movables.Add(pl);
                     pl.Tile = spawnTile;
                 }
@@ -94,6 +100,7 @@ namespace CatMerge
 
                     var pl = newPlayable.GetComponent<Playable>();
                     pl.SetPosition(spawnTile.transform.position + Vector3.back, 0f);
+                    pl.SpawnAnimationPlay(_spawnStartScale, _spawnScaleDuration);
                     MoveElementsSystem.Movables.Add(pl);
                     pl.Tile = spawnTile;
                 }

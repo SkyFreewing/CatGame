@@ -13,3 +13,5 @@ MonoBehaviour:
   m_Name: CatMerge AnimConfig
   m_EditorClassIdentifier: 
   _movableAnimationDuration: 0.2
+  _spawnScaleDuration: 0.1
+  _spawnStartScale: {x: 0.5, y: 0.5, z: 0.5}
