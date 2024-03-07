@@ -58,7 +58,8 @@ namespace CatMerge
             var finalScale = new Vector3(1, 1, 1);
             gameObject.transform.localScale = startScale;
 
-            _transformTween = gameObject.transform.DOScale(finalScale, duration);
+            _transformTween = gameObject.transform.DOScale(finalScale, duration)
+                .OnKill(() => gameObject.transform.localScale = finalScale);
         }
     }
 }
