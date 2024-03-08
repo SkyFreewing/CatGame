@@ -9,15 +9,18 @@ namespace CatMerge
     internal class BoardSpawnSystem : IStartupSystem, IMoveCompletedListener
     {
         //Placeholder graphics to be replaced by visual systems
-        const string texturePath = "Textures/Placeholder";
-        const string texturePath2 = "Textures/Placeholder 2";
+        const string texturePath = "Textures/PlaceholderPixel";
+        const string texturePath2 = "Textures/Placeholder2";
         const string prefabPath = "Prefabs/Playable";
 
         Vector2 _boardSize;
         Vector3 _spawnStartScale;
+        Vector3 _mergingScale;
         int _startPlayablesCount;
         int _spawnPlayablesCount;
         float _spawnScaleDuration;
+        float _mergingScaleDuration;
+        Color[] _gradeColors;
         
 
         GameObject _boardObject;
@@ -31,7 +34,10 @@ namespace CatMerge
             _startPlayablesCount = configs.GameConfig.StartPlayableCount;
             _spawnPlayablesCount = configs.GameConfig.SpawnPlayableCount;
             _spawnScaleDuration = configs.AnimConfig.SpawnScaleDuration;
+            _mergingScaleDuration = configs.AnimConfig.MergingScaleDuration;
             _spawnStartScale = configs.AnimConfig.SpawnStartScale;
+            _mergingScale = configs.AnimConfig.MergingScale;
+            _gradeColors = configs.GameConfig.GradeColors;
 
             MoveCompletedEvent.AddListener(this);
 
@@ -76,6 +82,7 @@ namespace CatMerge
 
                     var pl = newPlayable.GetComponent<Playable>();
                     pl.SetPosition(spawnTile.transform.position + Vector3.back, 0f);
+                    pl.SetGrade(0, _gradeColors, _mergingScale, _mergingScaleDuration);
                     pl.SpawnAnimationPlay(_spawnStartScale, _spawnScaleDuration);
                     MoveElementsSystem.Movables.Add(pl);
                     pl.Tile = spawnTile;
@@ -100,6 +107,7 @@ namespace CatMerge
 
                     var pl = newPlayable.GetComponent<Playable>();
                     pl.SetPosition(spawnTile.transform.position + Vector3.back, 0f);
+                    pl.SetGrade(0, _gradeColors, _mergingScale, _mergingScaleDuration);
                     pl.SpawnAnimationPlay(_spawnStartScale, _spawnScaleDuration);
                     MoveElementsSystem.Movables.Add(pl);
                     pl.Tile = spawnTile;

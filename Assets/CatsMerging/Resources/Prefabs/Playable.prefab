@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &314037447991674481
 RectTransform:
   m_ObjectHideFlags: 0
@@ -218,6 +218,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gradeIndex: 0
+  _willMerge: 0
+  _position: {x: 0, y: 0, z: 0}
   GradeDisplay_Debug: {fileID: 9183195662603749149}
 --- !u!212 &7620299678758040890
 SpriteRenderer:
@@ -260,7 +262,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 45e1accd0797d574984c1aed465a1418, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 431d42fb9960833488ee126226dc5a7d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

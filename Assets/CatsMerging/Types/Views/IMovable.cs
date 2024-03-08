@@ -9,5 +9,6 @@ namespace CatMerge
         bool WillMerge { get; set; }
         Vector3 Position { get; set; }
         void SetPosition(Vector3 newPosition, float duration);
+        void SetGrade(int newGrade, Color[] gradeColors, Vector3 mergingScale, float mergingScaleDuration);
     }
 }

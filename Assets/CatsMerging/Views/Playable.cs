@@ -11,6 +11,7 @@ namespace CatMerge
         [SerializeField] Vector3 _position;
 
         Tween _transformTween;
+        Sequence _upgradeSequence;
 
         public TMP_Text GradeDisplay_Debug;
 
@@ -28,6 +29,32 @@ namespace CatMerge
         {
             _transformTween.Kill();
             _transformTween = null;
+        }
+
+        public void SetGrade(int newGrade, Color[] gradeColors, Vector3 targetScale, float scaleDuration) 
+        {
+            _gradeIndex = newGrade;
+
+            var spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+            MaterialPropertyBlock propertyBlock = new MaterialPropertyBlock();
+            spriteRenderer.GetPropertyBlock(propertyBlock);
+           
+            _upgradeSequence.Kill();
+            _upgradeSequence = DOTween.Sequence();
+
+            var scale = gameObject.transform.localScale;
+
+            _upgradeSequence.Append(gameObject.transform.DOScale(targetScale, scaleDuration))
+                            .Append(gameObject.transform.DOScale(scale, scaleDuration))
+                            .OnKill(() => gameObject.transform.localScale = scale)
+                            .Play();
+
+            if (gradeColors.Length > newGrade)
+                propertyBlock.SetColor("_Color", gradeColors[newGrade]);
+            else
+                propertyBlock.SetColor("_Color", Color.magenta);
+                     
+            spriteRenderer.SetPropertyBlock(propertyBlock);
         }
 
         public void SetPosition(Vector3 newPosition, float duration)

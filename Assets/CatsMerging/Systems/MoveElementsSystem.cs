@@ -10,14 +10,19 @@ namespace CatMerge
         public static List<IMovable> Movables =  new List<IMovable>();
         public static List<ITile> Tiles = new List<ITile>();
 
+        Vector3 _mergingScale;
         float _movementDuration;
+        float _mergingScaleDuration;
+        Color[] _gradeColors;
 
-        MoveCompletedEvent _moveCompletedEvent;
-        AnyMergeEvent _anyMergeEvent;
+        MoveCompletedEvent _moveCompletedEvent;       AnyMergeEvent _anyMergeEvent;
 
         public MoveElementsSystem(IConfigCatalogue configs)
         {
+            _mergingScale = configs.AnimConfig.MergingScale;
+            _mergingScaleDuration = configs.AnimConfig.MergingScaleDuration;
             _movementDuration = configs.AnimConfig.MovableAnimationDuration;
+            _gradeColors = configs.GameConfig.GradeColors;
 
             InputChangedEvent.AddListener(this);
 
@@ -164,7 +169,7 @@ namespace CatMerge
 
             foreach (var movable in mergeTargets)
             {
-                movable.GradeIndex++;
+                movable.SetGrade(movable.GradeIndex + 1, _gradeColors, _mergingScale, _mergingScaleDuration);
                 _anyMergeEvent.OnAnyMerge(movable.GradeIndex);
             }
 
