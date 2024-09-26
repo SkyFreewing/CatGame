@@ -10,7 +10,6 @@ namespace CatMerge
     {
         //Placeholder graphics to be replaced by visual systems
         const string texturePath = "Textures/PlaceholderPixel";
-        const string texturePath2 = "Textures/Placeholder2";
         const string prefabPath = "Prefabs/Playable";
 
         Vector2 _boardSize;
@@ -21,7 +20,7 @@ namespace CatMerge
         float _spawnScaleDuration;
         float _mergingScaleDuration;
         Color[] _gradeColors;
-        
+       
 
         GameObject _boardObject;
         List<BoardTile> _tileList = new List<BoardTile>();
