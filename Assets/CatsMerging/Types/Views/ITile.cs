@@ -6,6 +6,6 @@ namespace CatMerge
     {
         bool IsOccupied { get; set; }
         Vector3 Position { get; set; }
-        void SetPosition(Vector3 newPosition);
+        void SetPosition(Vector3 NewPosition);
     }
 }

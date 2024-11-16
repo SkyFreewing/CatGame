@@ -7,7 +7,7 @@ namespace CatMerge
     internal class MoveElementsSystem : ISystem, IInputChangedListener
     {
         //TODO: Replace evil statics with some global containers for types
-        public static List<IMovable> Movables =  new List<IMovable>();
+        public static List<IMovable> Movables = new List<IMovable>();
         public static List<ITile> Tiles = new List<ITile>();
 
         Vector3 _mergingScale;
@@ -15,7 +15,8 @@ namespace CatMerge
         float _mergingScaleDuration;
         Color[] _gradeColors;
 
-        MoveCompletedEvent _moveCompletedEvent;       AnyMergeEvent _anyMergeEvent;
+        MoveCompletedEvent _moveCompletedEvent;
+        AnyMergeEvent _anyMergeEvent;
 
         public MoveElementsSystem(IConfigCatalogue configs)
         {
@@ -28,8 +29,8 @@ namespace CatMerge
 
             _moveCompletedEvent = new MoveCompletedEvent();
             _anyMergeEvent = new AnyMergeEvent();
-        }    
-        
+        }
+
         public void OnInputChanged(object e, Vector2 input)
         {
             if (Movables.Count <= 0 || Tiles.Count <= 0) return;
@@ -42,7 +43,7 @@ namespace CatMerge
             var movableTargetTiles = new Dictionary<IMovable, ITile>();
             var mergeTargets = new List<IMovable>();
 
-            foreach (var mov in Movables) 
+            foreach (var mov in Movables)
             {
                 var obstacleMovables = new List<IMovable>();
 
@@ -51,7 +52,7 @@ namespace CatMerge
                 var movablePositionOnAxis = inputIsX ? position.x : position.y;
 
                 int equalGradesCount = 0;
-                IMovable mergeTarget = null;               
+                IMovable mergeTarget = null;
 
                 if (direction > 0)
                 {
@@ -71,7 +72,7 @@ namespace CatMerge
                                                             && m.Position.x == movableAxis)
                                                             .OrderByDescending(m => inputIsX ? m.Position.x
                                                             : m.Position.y)
-                                                            .ToList<IMovable>();                  
+                                                            .ToList<IMovable>();
                 }
 
                 for (var i = 0; i < obstacleMovables.Count; i++)
@@ -92,7 +93,7 @@ namespace CatMerge
                 }
             }
 
-            foreach (var mov in Movables) 
+            foreach (var mov in Movables)
             {
                 var obstacleMovables = new List<IMovable>();
                 var targetTiles = new List<ITile>();
@@ -100,7 +101,7 @@ namespace CatMerge
                 var position = mov.Position;
                 var movableAxis = inputIsX ? position.y : position.x;
                 var movablePositionOnAxis = inputIsX ? position.x : position.y;
-                
+
                 if (direction > 0)
                 {
                     targetTiles = Tiles.Where(t => inputIsX ? t.Position.x > movablePositionOnAxis
@@ -112,7 +113,7 @@ namespace CatMerge
                                                             && m.Position.y == movableAxis
                                                             : m.Position.y > movablePositionOnAxis
                                                             && m.Position.x == movableAxis)
-                                                            .ToList<IMovable>();                    
+                                                            .ToList<IMovable>();
                 }
                 else
                 {
@@ -134,11 +135,11 @@ namespace CatMerge
                 if (mov.WillMerge)
                     boardSteps++;
 
-                foreach (var obstacle in obstacleMovables.Where(obs => obs.WillMerge)) 
+                foreach (var obstacle in obstacleMovables.Where(obs => obs.WillMerge))
                 {
                     boardSteps++;
                 }
-               
+
                 foreach (var tile in targetTiles)
                 {
                     var tilePosition = tile.Position;
@@ -150,7 +151,7 @@ namespace CatMerge
 
             }
 
-            foreach (var targetPair in movableTargetTiles) 
+            foreach (var targetPair in movableTargetTiles)
             {
                 var movable = targetPair.Key;
                 var targetTile = targetPair.Value;
@@ -160,11 +161,11 @@ namespace CatMerge
 
                 movable.SetPosition(targetTile.Position + Vector3.back, _movementDuration);
 
-                if (movable.WillMerge)              
-                    Movables.Remove(movable);                
+                if (movable.WillMerge)
+                    Movables.Remove(movable);
             }
 
-            foreach (var targetPair in movableTargetTiles) 
+            foreach (var targetPair in movableTargetTiles)
                 targetPair.Value.IsOccupied = true;
 
             foreach (var movable in mergeTargets)

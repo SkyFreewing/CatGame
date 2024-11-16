@@ -6,19 +6,19 @@ namespace CatMerge
     {
         public static event EventHandler<int> AnyMerge;
 
-        public virtual void OnAnyMerge(int input)
+        public virtual void OnAnyMerge(int Value)
         {
-            AnyMerge?.Invoke(this, input);
+            AnyMerge?.Invoke(this, Value);
         }
 
-        public static void AddListener(IAnyMergeListener listener)
+        public static void AddListener(IAnyMergeListener Listener)
         {
-            AnyMerge += listener.OnAnyMerge;
+            AnyMerge += Listener.OnAnyMerge;
         }
 
-        public static void RemoveListener(IAnyMergeListener listener)
+        public static void RemoveListener(IAnyMergeListener Listener)
         {
-            AnyMerge -= listener.OnAnyMerge;
+            AnyMerge -= Listener.OnAnyMerge;
         }
     }
 }

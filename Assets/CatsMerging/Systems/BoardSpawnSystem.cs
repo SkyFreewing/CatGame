@@ -19,10 +19,12 @@ namespace CatMerge
         int _spawnPlayablesCount;
         float _spawnScaleDuration;
         float _mergingScaleDuration;
+        bool _scoreCounterEnabled;
         Color[] _gradeColors;
        
 
         GameObject _boardObject;
+        GameObject _scoreCounterObject;
         List<BoardTile> _tileList = new List<BoardTile>();
 
         GameLostEvent _gameLostEvent;
@@ -36,6 +38,7 @@ namespace CatMerge
             _mergingScaleDuration = configs.AnimConfig.MergingScaleDuration;
             _spawnStartScale = configs.AnimConfig.SpawnStartScale;
             _mergingScale = configs.AnimConfig.MergingScale;
+            _scoreCounterEnabled = configs.GameConfig.ScoreCounterEnabled;
             _gradeColors = configs.GameConfig.GradeColors;
 
             MoveCompletedEvent.AddListener(this);
@@ -45,6 +48,10 @@ namespace CatMerge
        
         public void Startup()
         {
+            //Spawn the score counter
+            _scoreCounterObject = new GameObject("Score Counter");
+            
+            //Spawn the board
             _boardObject = new GameObject("Board");
 
             for (int i = 1; i <= _boardSize.x; i++)
@@ -82,11 +89,13 @@ namespace CatMerge
                     var pl = newPlayable.GetComponent<Playable>();
                     pl.SetPosition(spawnTile.transform.position + Vector3.back, 0f);
                     pl.SetGrade(0, _gradeColors, _mergingScale, _mergingScaleDuration);
+                    //Check here if the animation should really be controlled by the system and not only the view 1
                     pl.SpawnAnimationPlay(_spawnStartScale, _spawnScaleDuration);
                     MoveElementsSystem.Movables.Add(pl);
                     pl.Tile = spawnTile;
                 }
-            }         
+            }    
+            ///TODO: Create the ScoreCounter Object
         }
 
         public void OnMoveCompleted(object e, bool flag)
@@ -107,6 +116,7 @@ namespace CatMerge
                     var pl = newPlayable.GetComponent<Playable>();
                     pl.SetPosition(spawnTile.transform.position + Vector3.back, 0f);
                     pl.SetGrade(0, _gradeColors, _mergingScale, _mergingScaleDuration);
+                    //Check here if the animation should really be controlled by the system and not only the view 2
                     pl.SpawnAnimationPlay(_spawnStartScale, _spawnScaleDuration);
                     MoveElementsSystem.Movables.Add(pl);
                     pl.Tile = spawnTile;

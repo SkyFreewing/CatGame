@@ -8,6 +8,7 @@ namespace CatMerge
         int StartPlayableCount { get; }
         int SpawnPlayableCount { get; }
         int HighestIndexToWin { get; }
+        bool ScoreCounterEnabled { get; }
         Color[] GradeColors { get; }
     }
 }
