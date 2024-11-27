@@ -7,14 +7,15 @@ namespace CatMerge
     {
         public TMP_Text DisplayText;
 
-        public ScoreCounter()
+        void Awake()
         {
             ScoreChangeEvent.AddListener(this);
+            UpdateText(0);
         }
 
         void UpdateText(int newValue) 
         {
-            DisplayText.text = newValue.ToString();
+            DisplayText.SetText(newValue.ToString());
         }
 
         public void OnScoreChange(object e, int value)

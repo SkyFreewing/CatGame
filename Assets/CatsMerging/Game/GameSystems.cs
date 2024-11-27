@@ -1,11 +1,9 @@
-﻿using CatMerge;
-
-namespace Assets.CatsMerging.Classes
+﻿namespace CatMerge
 {
-    internal class GameSystems : Systems 
+    internal class GameSystems : Systems
     {
         public GameSystems(IConfigCatalogue configCatalogue)
-        {  
+        {
             //Core Mechanics
             Add(new InputReadSystem(configCatalogue));
             Add(new MoveElementsSystem(configCatalogue));
@@ -15,8 +13,11 @@ namespace Assets.CatsMerging.Classes
             //Spawn
             Add(new BoardSpawnSystem(configCatalogue));
 
+            //UI
+            Add(new GameUISystem(configCatalogue));
+
             //Scoring
-            Add(new ScoreCountingSystem(configCatalogue));
+            Add(new ScoreCountingSystem(configCatalogue));         
         }
     }
 }

@@ -9,8 +9,11 @@ namespace CatMerge
         [SerializeField] GameConfig _gameConfig;
         [SerializeField] InputConfig _inputConfig;
         [SerializeField] AnimConfig _animConfig;
+        [SerializeField] GameUIConfig _gameUIConfig;
+
         public IGameConfig GameConfig => _gameConfig;
         public IInputConfig InputConfig => _inputConfig;
         public IAnimConfig AnimConfig => _animConfig;
+        public IGameUIConfig GameUIConfig => _gameUIConfig;
     }
 }

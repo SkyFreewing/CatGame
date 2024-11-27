@@ -4,7 +4,6 @@ namespace CatMerge
 {
     internal class ScoreCountingSystem : ISystem, IStartupSystem, IAnyMergeListener
     {
-        float _scoreMultiplier;
         int _currentScore;
 
         ScoreChangeEvent _scoreChangeEvent;
@@ -23,7 +22,7 @@ namespace CatMerge
 
         public void OnAnyMerge(object e, int input)
         {
-            var updatedScore = (int)Math.Ceiling(_currentScore + input * _scoreMultiplier);
+            var updatedScore = (int)Math.Ceiling(_currentScore + input * 1f);
             _currentScore = updatedScore;
             _scoreChangeEvent.OnScoreChange(updatedScore);
         }

@@ -15,3 +15,4 @@ MonoBehaviour:
   _gameConfig: {fileID: 11400000, guid: 5597643e8c910464b8cd66ccdfaa18b2, type: 2}
   _inputConfig: {fileID: 11400000, guid: 5eaa871d6f17ef34889ad13b5093e605, type: 2}
   _animConfig: {fileID: 11400000, guid: e783286e92afef34190d46cc5ab12d5f, type: 2}
+  _gameUIConfig: {fileID: 11400000, guid: 3e7c94fdc10ecdf4eb64efd92d17ee49, type: 2}

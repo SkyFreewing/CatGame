@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.InputSystem.EnhancedTouch;
-using UnityEngine.UIElements;
 
 namespace CatMerge
 {
@@ -19,12 +17,10 @@ namespace CatMerge
         int _spawnPlayablesCount;
         float _spawnScaleDuration;
         float _mergingScaleDuration;
-        bool _scoreCounterEnabled;
         Color[] _gradeColors;
        
 
         GameObject _boardObject;
-        GameObject _scoreCounterObject;
         List<BoardTile> _tileList = new List<BoardTile>();
 
         GameLostEvent _gameLostEvent;
@@ -38,7 +34,6 @@ namespace CatMerge
             _mergingScaleDuration = configs.AnimConfig.MergingScaleDuration;
             _spawnStartScale = configs.AnimConfig.SpawnStartScale;
             _mergingScale = configs.AnimConfig.MergingScale;
-            _scoreCounterEnabled = configs.GameConfig.ScoreCounterEnabled;
             _gradeColors = configs.GameConfig.GradeColors;
 
             MoveCompletedEvent.AddListener(this);
@@ -47,10 +42,7 @@ namespace CatMerge
         }
        
         public void Startup()
-        {
-            //Spawn the score counter
-            _scoreCounterObject = new GameObject("Score Counter");
-            
+        {       
             //Spawn the board
             _boardObject = new GameObject("Board");
 
@@ -94,8 +86,7 @@ namespace CatMerge
                     MoveElementsSystem.Movables.Add(pl);
                     pl.Tile = spawnTile;
                 }
-            }    
-            ///TODO: Create the ScoreCounter Object
+            }           
         }
 
         public void OnMoveCompleted(object e, bool flag)
