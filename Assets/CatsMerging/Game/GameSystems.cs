@@ -14,7 +14,9 @@
             Add(new BoardSpawnSystem(configCatalogue));
 
             //UI
+            Add(new AppUISystem(configCatalogue));
             Add(new GameUISystem(configCatalogue));
+            Add(new EndOfGameUISystem(configCatalogue));
 
             //Scoring
             Add(new ScoreCountingSystem(configCatalogue));         

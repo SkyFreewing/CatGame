@@ -28,7 +28,9 @@ namespace CatMerge
         void OnDestroy() 
         {
             _transformTween.Kill();
+            _upgradeSequence.Kill();
             _transformTween = null;
+            _upgradeSequence = null;
         }
 
         public void SetGrade(int newGrade, Color[] gradeColors, Vector3 targetScale, float scaleDuration) 
@@ -82,6 +84,7 @@ namespace CatMerge
 
         public void SpawnAnimationPlay(Vector3 startScale, float duration) 
         {
+            _transformTween.Kill();
             var finalScale = new Vector3(1, 1, 1);
             gameObject.transform.localScale = startScale;
 

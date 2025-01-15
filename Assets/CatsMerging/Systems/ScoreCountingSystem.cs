@@ -2,10 +2,9 @@
 
 namespace CatMerge
 {
-    internal class ScoreCountingSystem : ISystem, IStartupSystem, IAnyMergeListener
+    internal class ScoreCountingSystem : IStartupSystem, IAnyMergeListener
     {
         int _currentScore;
-
         ScoreChangeEvent _scoreChangeEvent;
 
         public ScoreCountingSystem(IConfigCatalogue configs)

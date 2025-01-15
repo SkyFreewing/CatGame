@@ -3,18 +3,19 @@ using UnityEngine;
 
 namespace CatMerge
 {
-    internal class EndOfGameSystem : ISystem, IGameplayBlocker, IGameLostListener, IAnyMergeListener
+    internal class EndOfGameSystem : ISystem, IGameplayBlocker, IGameLostListener, IAnyMergeListener, IScoreChangeListener
     {
         int _highestIndexNeededToWin;
         int _currentHighestIndex;
+        int _currentScore;
 
-        GameplayBlockerAddedEvent _gameplayBlockerAddedEvent;
+        EndOfGameEvent _endOfGameEvent;
 
         public EndOfGameSystem(IConfigCatalogue configs)
         {
             _highestIndexNeededToWin = configs.GameConfig.HighestIndexToWin;
 
-            _gameplayBlockerAddedEvent = new GameplayBlockerAddedEvent();
+            _endOfGameEvent = new EndOfGameEvent();
 
             GameLostEvent.AddListener(this);
             AnyMergeEvent.AddListener(this);                
@@ -30,7 +31,7 @@ namespace CatMerge
                 {
                     Debug.Log(">>>> Congrats! You have won the game! <<<<");
 
-                    _gameplayBlockerAddedEvent.OnGameplayBlockerAdded(this);
+                    _endOfGameEvent.OnEndOfGame(new GameResult(true, _currentScore));
                 }
             }
         }
@@ -39,7 +40,12 @@ namespace CatMerge
         {
             Debug.Log(">>>> Oh no! You have lost the game! <<<<");
 
-            _gameplayBlockerAddedEvent.OnGameplayBlockerAdded(this);
+            _endOfGameEvent.OnEndOfGame(new GameResult(false, _currentScore));
+        }
+
+        public void OnScoreChange(object e, int value)
+        {
+            _currentScore = value;  
         }
     }
 }

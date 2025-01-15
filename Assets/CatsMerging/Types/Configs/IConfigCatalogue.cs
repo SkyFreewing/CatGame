@@ -6,5 +6,6 @@
         IInputConfig InputConfig { get; }
         IAnimConfig AnimConfig { get; }
         IGameUIConfig GameUIConfig { get; }
+        IAppUIConfig AppUIConfig { get; }
     }
 }
