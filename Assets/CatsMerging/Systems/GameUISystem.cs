@@ -64,7 +64,6 @@ namespace CatMerge
             if (GamePopups.Remove(popup))
             {
                 popup.Hide();
-                GameObject.Destroy(popup.GameObject);
             }
         }
 

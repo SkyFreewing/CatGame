@@ -5,6 +5,8 @@ namespace CatMerge
 {
     internal class SettingsPopup : GamePlayBlockerPopup
     {
+        Tween _transformTween;
+
         public SettingsPopup() : base()
         {
             PrefabAssetPath = "Prefabs/SettingsPopup";
@@ -14,14 +16,15 @@ namespace CatMerge
         {
             base.Show();
 
-            GameObject.transform.DOScale(new Vector3(1.1f, 1.1f, 1.1f), 0.1f);
+            _transformTween = GameObject.transform.DOScale(new Vector3(1.1f, 1.1f, 1.1f), 0.1f);
         }
 
         public override void Hide()
         {
             base.Hide();
 
-            GameObject.transform.DOScale(new Vector3(1, 1, 1), 0.1f);
+            _transformTween = GameObject.transform.DOScale(new Vector3(1f, 1f, 1f), 0.05f)
+                .OnComplete(() => GameObject.Destroy(this.GameObject));
         }
     }
 }

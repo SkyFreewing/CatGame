@@ -8,6 +8,7 @@ namespace CatMerge
         public int Score;
 
         EndOfGameScoreDisplay _scoreDisplay;
+        Tween _transformTween;
 
         public EndOfGamePopup() : base()
         {
@@ -20,7 +21,7 @@ namespace CatMerge
             _scoreDisplay = GameObject.GetComponentInChildren<EndOfGameScoreDisplay>();
             _scoreDisplay.Score = Score;
 
-            GameObject.transform.DOScale(new Vector3(1.1f, 1.1f, 1.1f), 0.1f);
+            _transformTween = GameObject.transform.DOScale(new Vector3(1.1f, 1.1f, 1.1f), 0.1f);
         }
 
         public override void Hide()
@@ -28,7 +29,8 @@ namespace CatMerge
             base.Hide();
             _scoreDisplay.Score = 0;
             
-            GameObject.transform.DOScale(new Vector3(1, 1, 1), 0.1f);
+            _transformTween = GameObject.transform.DOScale(new Vector3(1, 1, 1), 0.05f)
+                .OnComplete(() => GameObject.Destroy(this.GameObject));
         }
     }
 }
