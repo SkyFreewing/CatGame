@@ -16,15 +16,20 @@ MonoBehaviour:
   _startPlayableCount: 2
   _spawnPlayableCount: 1
   _highestIndexToWin: 10
-  _gradeColors:
-  - {r: 0.9058824, g: 0.83921576, b: 0.37647063, a: 1}
-  - {r: 0.8862746, g: 0.627451, b: 0.27058825, a: 1}
-  - {r: 0.8862746, g: 0.3019608, b: 0.27058825, a: 1}
-  - {r: 0.8862746, g: 0.27058825, b: 0.69411767, a: 1}
-  - {r: 0.69411767, g: 0.27058825, b: 0.8862746, a: 1}
-  - {r: 0.6890348, g: 0.60083663, b: 0.8113208, a: 1}
-  - {r: 0.19607845, g: 0.19607845, b: 1, a: 1}
-  - {r: 0.23137257, g: 0.8117648, b: 0.8980393, a: 1}
-  - {r: 0.16470589, g: 0.86666673, b: 0.6156863, a: 1}
-  - {r: 1, g: 1, b: 1, a: 1}
-  - {r: 0.08627451, g: 0.08627451, b: 0.08627451, a: 1}
+  _scoreCounterEnabled: 1
+  _gradeSprites:
+  - {fileID: 21300000, guid: ac7a15fd92f569049a7feecdff392b0f, type: 3}
+  - {fileID: 21300000, guid: 1477c29f2e3655a4f80f325184165bb9, type: 3}
+  - {fileID: 21300000, guid: c2518c469e6e400428e917162a30ffd6, type: 3}
+  - {fileID: 21300000, guid: 491ad107427483943819afe1f9014888, type: 3}
+  - {fileID: 21300000, guid: 5a37db87fb84cee4bb1f95aa8b45f6fd, type: 3}
+  - {fileID: 21300000, guid: 05dc306832189a643a978302adc01065, type: 3}
+  - {fileID: 21300000, guid: f3808bb302992ae4680589a9276cd96c, type: 3}
+  - {fileID: 21300000, guid: b343541bf7df71343b2ff7e5355d081e, type: 3}
+  - {fileID: 21300000, guid: fa7f2ec5195334242bb0b7113993f3cc, type: 3}
+  - {fileID: 21300000, guid: 1cae168cb7bd19e41832de3437c69c5c, type: 3}
+  _scoreColors:
+  - {r: 0.9150943, g: 0.9150943, b: 0.9150943, a: 1}
+  - {r: 1, g: 0.8034709, b: 0.6839622, a: 1}
+  - {r: 1, g: 0.45569685, b: 0.16509432, a: 1}
+  - {r: 1, g: 0.8345146, b: 0.13679248, a: 1}

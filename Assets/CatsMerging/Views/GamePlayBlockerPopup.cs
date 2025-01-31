@@ -2,7 +2,7 @@
 
 namespace CatMerge
 {
-    internal abstract class GamePlayBlockerPopup : MonoBehaviour, IPopup, IGameplayBlocker
+    internal abstract class GamePlayBlockerPopup : IPopup, IGameplayBlocker
     {
         public GameObject GameObject { get; set; }
         public string PrefabAssetPath { get; set; }

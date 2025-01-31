@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using DG.Tweening;
+using System;
 
 namespace CatMerge
 {
@@ -9,9 +10,12 @@ namespace CatMerge
         [SerializeField] int _gradeIndex;
         [SerializeField] bool _willMerge;
         [SerializeField] Vector3 _position;
+        [SerializeField] ParticleSystem _particleSystem;
+        [SerializeField] GameObject _backgroundEffects;
 
         Tween _transformTween;
         Sequence _upgradeSequence;
+        const string _scoreFlavorPrefabPath = "Prefabs/ScoreFlavor";
 
         public TMP_Text GradeDisplay_Debug;
 
@@ -33,7 +37,12 @@ namespace CatMerge
             _upgradeSequence = null;
         }
 
-        public void SetGrade(int newGrade, Color[] gradeColors, Vector3 targetScale, float scaleDuration) 
+        public void Kill() 
+        {
+            GameObject.Destroy(gameObject);
+        }
+
+        public void SetGrade(int newGrade, Sprite[] gradeSprites, Vector3 targetScale, float scaleDuration) 
         {
             _gradeIndex = newGrade;
 
@@ -51,12 +60,24 @@ namespace CatMerge
                             .OnKill(() => gameObject.transform.localScale = scale)
                             .Play();
 
-            if (gradeColors.Length > newGrade)
-                propertyBlock.SetColor("_Color", gradeColors[newGrade]);
-            else
-                propertyBlock.SetColor("_Color", Color.magenta);
-                     
-            spriteRenderer.SetPropertyBlock(propertyBlock);
+            if (gradeSprites.Length > newGrade)
+            {
+                spriteRenderer.sprite = gradeSprites[newGrade];
+
+                if (newGrade > 0)
+                {
+                    var scoreFlavorPrefab = Resources.Load(_scoreFlavorPrefabPath);
+                    var scoreFlavor = GameObject.Instantiate(scoreFlavorPrefab) as GameObject;
+                    scoreFlavor.transform.Translate(transform.localPosition);
+                    scoreFlavor.GetComponent<ScoreFlavor>().SetScoreText((int)Math.Pow(2, newGrade));
+
+                    scoreFlavor.transform.SetParent(GameObject.Find("FlavorCanvas").transform);
+                }
+                if (newGrade > 2)
+                    _particleSystem.Play();
+                if(newGrade > 6)
+                    _backgroundEffects.SetActive(true);                                                         
+            }
         }
 
         public void SetPosition(Vector3 newPosition, float duration)

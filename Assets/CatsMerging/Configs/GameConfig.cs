@@ -10,13 +10,15 @@ namespace CatMerge
         [SerializeField] int _spawnPlayableCount;
         [SerializeField] int _highestIndexToWin;
         [SerializeField] bool _scoreCounterEnabled;
-        [SerializeField] Color[] _gradeColors;
+        [SerializeField] Sprite[] _gradeSprites;
+        [SerializeField] Color[] _scoreColors;
 
         public Vector2 BoardSize => _boardSize;
         public int StartPlayableCount => _startPlayableCount;
         public int SpawnPlayableCount => _spawnPlayableCount;
         public int HighestIndexToWin => _highestIndexToWin;
         public bool ScoreCounterEnabled => _scoreCounterEnabled;
-        public Color[] GradeColors => _gradeColors;
+        public Sprite[] GradeSprites => _gradeSprites;
+        public Color[] ScoreColors => _scoreColors;
     }
 }

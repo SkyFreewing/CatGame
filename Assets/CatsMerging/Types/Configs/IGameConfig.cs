@@ -9,6 +9,7 @@ namespace CatMerge
         int SpawnPlayableCount { get; }
         int HighestIndexToWin { get; }
         bool ScoreCounterEnabled { get; }
-        Color[] GradeColors { get; }
+        Sprite[] GradeSprites { get; }
+        Color[] ScoreColors { get; }
     }
 }

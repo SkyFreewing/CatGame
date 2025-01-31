@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace CatMerge
 {
@@ -20,6 +21,10 @@ namespace CatMerge
         {
             _appCanvasGO = new GameObject("App Canvas");
             AppCanvas = _appCanvasGO.AddComponent<Canvas>();
+            _appCanvasGO.AddComponent<GraphicRaycaster>();
+
+            AppCanvas.sortingLayerID = 5;
+            AppCanvas.sortingOrder = 3;
             AppCanvas.renderMode = _startupRenderMode;
         }
 
