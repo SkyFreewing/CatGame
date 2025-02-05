@@ -10,14 +10,17 @@
             Add(new EndOfGameSystem(configCatalogue));
             Add(new GameplayBlockersSystem(configCatalogue));
 
-            //Spawn
-            Add(new BoardSpawnSystem(configCatalogue));
+            //Sound
+            Add(new SoundSystem(configCatalogue));
 
             //UI
             Add(new AppUISystem(configCatalogue));
             Add(new GameUISystem(configCatalogue));
             Add(new EndOfGameUISystem(configCatalogue));
 
+            //Spawn
+            Add(new BoardSpawnSystem(configCatalogue));
+           
             //Scoring
             Add(new ScoreCountingSystem(configCatalogue));         
         }

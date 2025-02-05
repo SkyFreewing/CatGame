@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace CatMerge
 {
-    internal class GameUISystem : IStartupSystem
+    internal class GameUISystem : IStartupSystem, IResetGameListener
     {
         const string scoreCounterPrefabPath = "Prefabs/ScoreCounter";
+        const string settingsButtonPrefabPath = "Prefabs/SettingsButton";
 
         IConfigCatalogue _configs;
         GameObject _gameCanvasGO;      
@@ -18,12 +20,18 @@ namespace CatMerge
         {
             _configs = configs;
             _startupRenderMode = configs.GameUIConfig.GameCanvasRenderMode;
+
+            ResetGameEvent.AddListener(this);
         }
 
         public void Startup()
         {
             _gameCanvasGO = new GameObject("Game Canvas");
             GameCanvas = _gameCanvasGO.AddComponent<Canvas>();
+            _gameCanvasGO.AddComponent<GraphicRaycaster>();
+
+            GameCanvas.sortingLayerID = 5;
+            GameCanvas.sortingOrder = 1;
             GameCanvas.renderMode = _startupRenderMode;
 
             if (_configs.GameUIConfig.ScoreCounterEnabled) 
@@ -32,6 +40,10 @@ namespace CatMerge
                 var scoreCounter = GameObject.Instantiate(scoreCounterPrefab) as GameObject;
                 scoreCounter.transform.SetParent(_gameCanvasGO.transform, false);
             }
+
+            var settingsButtonPrefab = Resources.Load(settingsButtonPrefabPath);
+            var settingsButton = GameObject.Instantiate(settingsButtonPrefab) as GameObject;
+            settingsButton.transform.SetParent(_gameCanvasGO.transform, false);                       
         }
 
         public static void CreateGamePopup(IPopup popup)
@@ -52,8 +64,22 @@ namespace CatMerge
             if (GamePopups.Remove(popup))
             {
                 popup.Hide();
-                GameObject.Destroy(popup.GameObject);
             }
+        }
+
+        void RemoveAllPopups() 
+        {
+            var AllOpenPopups = GamePopups.ToArray();
+
+            foreach (var pop in AllOpenPopups) 
+            {
+                RemoveGamePopup(pop);
+            }
+        }
+
+        public void OnResetGame(object e, bool flag)
+        {
+            RemoveAllPopups();
         }
     }
 }

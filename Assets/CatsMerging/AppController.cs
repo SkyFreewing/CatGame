@@ -20,7 +20,7 @@ namespace CatMerge
         void Start()
         {
             if (ConfigCatalogue == null)
-                ConfigCatalogue = new ConfigCatalogue();;
+                ConfigCatalogue = new ConfigCatalogue();
 
             //DOTween
             DOTween.Init();
@@ -39,6 +39,7 @@ namespace CatMerge
                 GameSystems.Execute();
         }
 
+        //Pause all game features, while any UI/Blockers are showing
         public void OnAnyGameplayBlockers(object e, List<IGameplayBlocker> blockers) => _pauseGame = blockers.Any();
     }
 }

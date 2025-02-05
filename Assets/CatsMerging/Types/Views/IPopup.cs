@@ -6,7 +6,6 @@ namespace CatMerge
     {
         public GameObject GameObject { get; set; }
         public string PrefabAssetPath { get; set; }
-
         public void Show();
         public void Hide();
     }

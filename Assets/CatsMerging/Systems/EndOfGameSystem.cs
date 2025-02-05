@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace CatMerge
 {
@@ -18,7 +17,8 @@ namespace CatMerge
             _endOfGameEvent = new EndOfGameEvent();
 
             GameLostEvent.AddListener(this);
-            AnyMergeEvent.AddListener(this);                
+            AnyMergeEvent.AddListener(this);
+            ScoreChangeEvent.AddListener(this);
         }
 
         public void OnAnyMerge(object e, int input)
@@ -45,7 +45,7 @@ namespace CatMerge
 
         public void OnScoreChange(object e, int value)
         {
-            _currentScore = value;  
+            _currentScore = value;
         }
     }
 }

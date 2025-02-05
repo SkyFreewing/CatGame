@@ -1,0 +1,25 @@
+using UnityEngine;
+using UnityEngine.UI;
+
+namespace CatMerge
+{
+    public class SettingsButton : MonoBehaviour
+    {
+        public Button Button;
+
+        public void Start()
+        {           
+            Button.onClick.AddListener(OpenSettingsMenu);
+        }
+
+        public void OpenSettingsMenu() 
+        {
+            var SettingsMenu = new SettingsPopup();
+            GameUISystem.CreateGamePopup(SettingsMenu);
+
+            var sound = SoundSystem.Instance;
+            sound.PlayUISound(true);
+            sound.DampenBGMVolume(true);
+        }
+    }
+}

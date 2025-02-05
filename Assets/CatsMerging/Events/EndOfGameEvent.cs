@@ -24,13 +24,13 @@ namespace CatMerge
 
     public struct GameResult
     {
-        bool victory;
-        int score;
+        public bool Victory;
+        public int Score;
 
-        public GameResult(bool Victory, int Score)
+        public GameResult(bool victory, int score)
         {
-            victory = Victory;
-            score = Score;
+            Victory = victory;
+            Score = score;
         }
     }
 }

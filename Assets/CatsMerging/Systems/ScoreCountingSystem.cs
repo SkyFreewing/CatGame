@@ -2,16 +2,17 @@
 
 namespace CatMerge
 {
-    internal class ScoreCountingSystem : IStartupSystem, IAnyMergeListener
+    internal class ScoreCountingSystem : IStartupSystem, IAnyMergeListener, IResetGameListener
     {
         int _currentScore;
         ScoreChangeEvent _scoreChangeEvent;
 
         public ScoreCountingSystem(IConfigCatalogue configs)
-        {
-            AnyMergeEvent.AddListener(this);
-
+        {         
             _scoreChangeEvent = new ScoreChangeEvent();
+
+            AnyMergeEvent.AddListener(this);
+            ResetGameEvent.AddListener(this);
         }
 
         public void Startup()
@@ -21,9 +22,16 @@ namespace CatMerge
 
         public void OnAnyMerge(object e, int input)
         {
-            var updatedScore = (int)Math.Ceiling(_currentScore + input * 1f);
+            var multipliedInput = Math.Pow(2, input);
+            var updatedScore = (int)Math.Ceiling(_currentScore + multipliedInput);
             _currentScore = updatedScore;
             _scoreChangeEvent.OnScoreChange(updatedScore);
+        }
+
+        public void OnResetGame(object e, bool flag)
+        {
+            _currentScore = 0;
+            _scoreChangeEvent.OnScoreChange(_currentScore);
         }
     }
 }

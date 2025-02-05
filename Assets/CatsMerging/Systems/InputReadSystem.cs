@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace CatMerge
 {
@@ -59,6 +58,25 @@ namespace CatMerge
                 _lastPosition = Vector2.zero;
                 InputVector = Vector2.zero;
             }
+
+#if UNITY_EDITOR
+            if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) 
+            {
+                InputDirectionChanged(Vector2.up);
+            }
+            else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
+            {
+                InputDirectionChanged(Vector2.down);
+            }
+            else if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
+            {
+                InputDirectionChanged(Vector2.right);
+            }
+            else if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
+            {
+                InputDirectionChanged(Vector2.left);
+            }
+#endif
         }
 
         public void InputDirectionChanged(Vector2 movementDirection) 
