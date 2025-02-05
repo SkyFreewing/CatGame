@@ -16,6 +16,10 @@ namespace CatMerge
         {
             var popup = GameUISystem.GamePopups[0];
             GameUISystem.RemoveGamePopup(popup);
+
+            var sound = SoundSystem.Instance;
+            sound.PlayUISound(false);
+            sound.DampenBGMVolume(false);
         }
     }
 }

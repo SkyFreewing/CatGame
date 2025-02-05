@@ -13,6 +13,10 @@
             endPopup.Score = result.Score;
 
             GameUISystem.CreateGamePopup(endPopup);
+
+            var sound = SoundSystem.Instance;
+            sound.PlayUISound(false);
+            sound.DampenBGMVolume(true);
         }
     }
 }

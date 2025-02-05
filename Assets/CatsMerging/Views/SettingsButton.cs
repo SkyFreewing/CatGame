@@ -16,6 +16,10 @@ namespace CatMerge
         {
             var SettingsMenu = new SettingsPopup();
             GameUISystem.CreateGamePopup(SettingsMenu);
+
+            var sound = SoundSystem.Instance;
+            sound.PlayUISound(true);
+            sound.DampenBGMVolume(true);
         }
     }
 }

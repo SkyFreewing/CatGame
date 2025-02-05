@@ -17,6 +17,9 @@ MonoBehaviour:
   _spawnPlayableCount: 1
   _highestIndexToWin: 10
   _scoreCounterEnabled: 1
+  _bgmVolume: 0.03
+  _mergeVolume: 0.03
+  _uiVolume: 0.06
   _gradeSprites:
   - {fileID: 21300000, guid: ac7a15fd92f569049a7feecdff392b0f, type: 3}
   - {fileID: 21300000, guid: 1477c29f2e3655a4f80f325184165bb9, type: 3}
@@ -28,6 +31,9 @@ MonoBehaviour:
   - {fileID: 21300000, guid: b343541bf7df71343b2ff7e5355d081e, type: 3}
   - {fileID: 21300000, guid: fa7f2ec5195334242bb0b7113993f3cc, type: 3}
   - {fileID: 21300000, guid: 1cae168cb7bd19e41832de3437c69c5c, type: 3}
+  - {fileID: 21300000, guid: 6aaf8414130d3a64ea052faccc8192a3, type: 3}
+  - {fileID: 21300000, guid: 181f3c3e48d868645802156125ece9c3, type: 3}
+  - {fileID: 21300000, guid: 221e442cf9ca69a4b91817612fa86225, type: 3}
   _scoreColors:
   - {r: 0.9150943, g: 0.9150943, b: 0.9150943, a: 1}
   - {r: 1, g: 0.8352942, b: 0.13725491, a: 1}

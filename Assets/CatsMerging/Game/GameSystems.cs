@@ -10,6 +10,9 @@
             Add(new EndOfGameSystem(configCatalogue));
             Add(new GameplayBlockersSystem(configCatalogue));
 
+            //Sound
+            Add(new SoundSystem(configCatalogue));
+
             //UI
             Add(new AppUISystem(configCatalogue));
             Add(new GameUISystem(configCatalogue));

@@ -18,6 +18,10 @@ namespace CatMerge
         public void ResetGame()
         {
             _resetGameEvent.OnResetGame(true);
+
+            var sound = SoundSystem.Instance;
+            sound.PlayUISound(true);
+            sound.DampenBGMVolume(false);
         }
     }
 }

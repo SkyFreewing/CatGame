@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using DG.Tweening;
 using System;
+using UnityEngine.UIElements;
 
 namespace CatMerge
 {
@@ -11,7 +12,7 @@ namespace CatMerge
         [SerializeField] bool _willMerge;
         [SerializeField] Vector3 _position;
         [SerializeField] ParticleSystem _particleSystem;
-        [SerializeField] GameObject _backgroundEffects;
+        [SerializeField] GameObject[] _backgroundEffects;
 
         Tween _transformTween;
         Sequence _upgradeSequence;
@@ -31,8 +32,8 @@ namespace CatMerge
 
         void OnDestroy() 
         {
-            _transformTween.Kill();
-            _upgradeSequence.Kill();
+            _transformTween?.Kill();
+            _upgradeSequence?.Kill();
             _transformTween = null;
             _upgradeSequence = null;
         }
@@ -51,18 +52,21 @@ namespace CatMerge
             spriteRenderer.GetPropertyBlock(propertyBlock);
            
             _upgradeSequence.Kill();
-            _upgradeSequence = DOTween.Sequence();
+            _upgradeSequence = DOTween.Sequence();           
 
-            var scale = gameObject.transform.localScale;
+            var scale = transform.localScale;
 
             _upgradeSequence.Append(gameObject.transform.DOScale(targetScale, scaleDuration))
                             .Append(gameObject.transform.DOScale(scale, scaleDuration))
                             .OnKill(() => gameObject.transform.localScale = scale)
-                            .Play();
+                            .Play();          
 
             if (gradeSprites.Length > newGrade)
             {
-                spriteRenderer.sprite = gradeSprites[newGrade];
+                if (newGrade < 12)
+                    spriteRenderer.sprite = gradeSprites[newGrade];
+                else
+                    spriteRenderer.sprite = gradeSprites[12];
 
                 if (newGrade > 0)
                 {
@@ -75,8 +79,12 @@ namespace CatMerge
                 }
                 if (newGrade > 2)
                     _particleSystem.Play();
-                if(newGrade > 6)
-                    _backgroundEffects.SetActive(true);                                                         
+                if(newGrade > 5)
+                    _backgroundEffects[0].SetActive(true);
+                if(newGrade > 7)
+                    _backgroundEffects[1].SetActive(true);
+                if(newGrade > 9)
+                    _backgroundEffects[2].SetActive(true);             
             }
         }
 
@@ -94,7 +102,10 @@ namespace CatMerge
                     gameObject.transform.position = newPosition;
                     CheckForMerge();
                 })
-                .OnComplete(() => CheckForMerge());
+                .OnComplete(() => 
+                { 
+                    CheckForMerge();
+                });
         }
 
         void CheckForMerge() 

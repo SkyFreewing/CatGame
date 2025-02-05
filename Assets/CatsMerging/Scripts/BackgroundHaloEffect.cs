@@ -1,16 +1,20 @@
+using System.Linq;
 using UnityEngine;
 
 public class BackgroundHaloEffect : MonoBehaviour
 {
-    public GameObject InnerHalo;
-    public GameObject OuterHalo;        
+    public GameObject[] EffectObjects;        
 
-    // Update is called once per frame
     void Update()
     {
         var deltaTime = Time.deltaTime;
 
-        InnerHalo.transform.Rotate(new Vector3(0, 0, 25f * deltaTime));
-        OuterHalo.transform.Rotate(new Vector3(0, 0, -25f * deltaTime));
+        for (int i = 0; i < EffectObjects.Length; i++) 
+        {
+            if (i % 2 == 0) 
+                EffectObjects[i].transform.Rotate(new Vector3(0, 0, 25f * deltaTime));
+            else
+                EffectObjects[i].transform.Rotate(new Vector3(0, 0, -25f * deltaTime));
+        }
     }
 }
