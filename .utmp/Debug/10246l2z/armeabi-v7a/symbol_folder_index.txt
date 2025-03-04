@@ -1,1 +1,0 @@
-C:\Users\User\Documents\Unity\CatGame - Kopie\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\build\intermediates\cxx\Debug\10246l2z\obj\armeabi-v7a
