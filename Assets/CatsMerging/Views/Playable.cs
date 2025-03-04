@@ -2,7 +2,6 @@ using TMPro;
 using UnityEngine;
 using DG.Tweening;
 using System;
-using UnityEngine.UIElements;
 
 namespace CatMerge
 {
@@ -11,11 +10,13 @@ namespace CatMerge
         [SerializeField] int _gradeIndex;
         [SerializeField] bool _willMerge;
         [SerializeField] Vector3 _position;
+        [SerializeField] GameObject _sprite;
         [SerializeField] ParticleSystem _particleSystem;
         [SerializeField] GameObject[] _backgroundEffects;
 
         Tween _transformTween;
         Sequence _upgradeSequence;
+        Sequence _idleSequence;
         const string _scoreFlavorPrefabPath = "Prefabs/ScoreFlavor";
 
         public TMP_Text GradeDisplay_Debug;
@@ -24,7 +25,12 @@ namespace CatMerge
         public int GradeIndex { get => _gradeIndex; set => _gradeIndex = value; }
         public bool WillMerge { get => _willMerge; set => _willMerge = value; }
         public Vector3 Position { get => _position; set => _position = value; }
-      
+
+        void Start() 
+        {
+            
+        }
+
         public void Update() 
         {
             GradeDisplay_Debug.text = GradeIndex.ToString();
@@ -34,8 +40,10 @@ namespace CatMerge
         {
             _transformTween?.Kill();
             _upgradeSequence?.Kill();
+            _idleSequence?.Kill();
             _transformTween = null;
             _upgradeSequence = null;
+            _idleSequence = null;
         }
 
         public void Kill() 
@@ -47,7 +55,7 @@ namespace CatMerge
         {
             _gradeIndex = newGrade;
 
-            var spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+            var spriteRenderer = _sprite.GetComponent<SpriteRenderer>();
             MaterialPropertyBlock propertyBlock = new MaterialPropertyBlock();
             spriteRenderer.GetPropertyBlock(propertyBlock);
            
@@ -59,7 +67,15 @@ namespace CatMerge
             _upgradeSequence.Append(gameObject.transform.DOScale(targetScale, scaleDuration))
                             .Append(gameObject.transform.DOScale(scale, scaleDuration))
                             .OnKill(() => gameObject.transform.localScale = scale)
-                            .Play();          
+                            .Play();
+
+            _idleSequence.Kill();
+            _idleSequence = DOTween.Sequence();
+            _idleSequence.Append(_sprite.transform.DOLocalMoveY(.05f, .1f))                      
+                         .Append(_sprite.transform.DOLocalMoveY(0, .1f))
+                         .AppendInterval(1.2f)
+                         .SetLoops(-1)
+                         .Play();
 
             if (gradeSprites.Length > newGrade)
             {
@@ -90,11 +106,13 @@ namespace CatMerge
 
         public void SetPosition(Vector3 newPosition, float duration)
         {
-            _transformTween.Kill();
+            _transformTween.Kill();          
             Position = newPosition;
 
             var mergeOffset = _willMerge ? Vector3.back / 2 : Vector3.zero;
             newPosition -= mergeOffset;
+
+            
 
             _transformTween = gameObject.transform.DOMove(newPosition, duration)
                 .OnKill(() =>
@@ -105,7 +123,7 @@ namespace CatMerge
                 .OnComplete(() => 
                 { 
                     CheckForMerge();
-                });
+                });          
         }
 
         void CheckForMerge() 

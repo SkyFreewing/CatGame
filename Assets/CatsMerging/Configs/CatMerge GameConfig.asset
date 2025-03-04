@@ -15,7 +15,7 @@ MonoBehaviour:
   _boardSize: {x: 4, y: 4}
   _startPlayableCount: 2
   _spawnPlayableCount: 1
-  _highestIndexToWin: 10
+  _highestIndexToWin: 16
   _scoreCounterEnabled: 1
   _bgmVolume: 0.03
   _mergeVolume: 0.03
