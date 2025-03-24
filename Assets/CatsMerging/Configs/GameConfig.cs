@@ -10,9 +10,6 @@ namespace CatMerge
         [SerializeField] int _spawnPlayableCount;
         [SerializeField] int _highestIndexToWin;
         [SerializeField] bool _scoreCounterEnabled;
-        [SerializeField] float _bgmVolume;
-        [SerializeField] float _mergeVolume;
-        [SerializeField] float _uiVolume;
         [SerializeField] Sprite[] _gradeSprites;
         [SerializeField] Color[] _scoreColors;
 
@@ -21,9 +18,6 @@ namespace CatMerge
         public int SpawnPlayableCount => _spawnPlayableCount;
         public int HighestIndexToWin => _highestIndexToWin;
         public bool ScoreCounterEnabled => _scoreCounterEnabled;
-        public float BGMVolume => _bgmVolume;
-        public float MergeSoundVolume => _mergeVolume;
-        public float UISoundVolume => _uiVolume;
         public Sprite[] GradeSprites => _gradeSprites;
         public Color[] ScoreColors => _scoreColors;
     }

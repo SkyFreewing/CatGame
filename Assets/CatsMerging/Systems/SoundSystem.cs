@@ -6,17 +6,10 @@ public class SoundSystem : IStartupSystem, IAnyMergeListener
 {
     public static SoundSystem Instance { get; private set; }
 
-    //TODO: Setup SoundConfig and save resources there
     const string _bgmPrefabPath = "Prefabs/BGMSoundSource";
     const string _soundPrefabPath = "Prefabs/SoundSource";
 
-    const string _comboClipOnePrefabPath = "Sound/Combo1";
-    const string _comboClipTwoPrefabPath = "Sound/Combo2";
-    const string _comboClipThreePrefabPath = "Sound/Combo3";
-    const string _openUIClipPrefabPath = "Sound/Maximize";
-    const string _closeUIClipPrefabPath = "Sound/Minimize";
-
-    IGameConfig _config;
+    ISoundConfig _config;
     Object _bgmResource;
     Object _soundResource;
     GameObject _soundGO;
@@ -25,7 +18,7 @@ public class SoundSystem : IStartupSystem, IAnyMergeListener
 
     public SoundSystem(IConfigCatalogue configs)
     {
-        _config = configs.GameConfig;
+        _config = configs.SoundConfig;
         AnyMergeEvent.AddListener(this);
         Instance = this;
     }
@@ -39,16 +32,16 @@ public class SoundSystem : IStartupSystem, IAnyMergeListener
         _bgmResource = Resources.Load(_bgmPrefabPath);
         _soundResource = Resources.Load(_soundPrefabPath);
 
-        _audioClips.Add((AudioClip)Resources.Load(_comboClipOnePrefabPath));
-        _audioClips.Add((AudioClip)Resources.Load(_comboClipTwoPrefabPath));
-        _audioClips.Add((AudioClip)Resources.Load(_comboClipThreePrefabPath));
-        _audioClips.Add((AudioClip)Resources.Load(_openUIClipPrefabPath));
-        _audioClips.Add((AudioClip)Resources.Load(_closeUIClipPrefabPath));
+        _audioClips.Add(_config.LowComboSound);
+        _audioClips.Add(_config.MiddleComboSound);
+        _audioClips.Add(_config.HighComboSound);
+        _audioClips.Add(_config.OpenUISound);
+        _audioClips.Add(_config.CloseUISound);
 
         //Create the background music
         _bgmGO = GameObject.Instantiate(_bgmResource, _soundGO.transform) as GameObject;
         var audioSource = _bgmGO.GetComponent<AudioSource>();
-        audioSource.volume = _config.BGMVolume;
+        audioSource.volume = _config.BGMVolume * _config.MasterVolume;
         audioSource.Play();
     }
 
@@ -57,7 +50,7 @@ public class SoundSystem : IStartupSystem, IAnyMergeListener
         var soundGO = GameObject.Instantiate(_soundResource) as GameObject;
 
         var audioSource = soundGO.GetComponent<AudioSource>();
-        audioSource.volume = _config.MergeSoundVolume;
+        audioSource.volume = _config.MergeSoundVolume * _config.MasterVolume;
 
         if (input < 3)
         {
@@ -66,12 +59,12 @@ public class SoundSystem : IStartupSystem, IAnyMergeListener
         else if (input < 7)
         {
             audioSource.clip = _audioClips[1];
-            audioSource.volume = audioSource.volume + 0.02f;
+            audioSource.volume = audioSource.volume * 1.2f;
         }
         else
         {
             audioSource.clip = _audioClips[2];
-            audioSource.volume = audioSource.volume + 0.06f;
+            audioSource.volume = audioSource.volume * 1.6f;
         }
 
         audioSource.Play();        

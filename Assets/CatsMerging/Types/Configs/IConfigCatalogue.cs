@@ -7,5 +7,6 @@
         IAnimConfig AnimConfig { get; }
         IGameUIConfig GameUIConfig { get; }
         IAppUIConfig AppUIConfig { get; }
+        ISoundConfig SoundConfig { get; }
     }
 }

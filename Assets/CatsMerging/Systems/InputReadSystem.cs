@@ -59,7 +59,7 @@ namespace CatMerge
                 InputVector = Vector2.zero;
             }
 
-#if UNITY_EDITOR
+#if UNITY_EDITOR || UNITY_WEBGL
             if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) 
             {
                 InputDirectionChanged(Vector2.up);
