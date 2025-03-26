@@ -8,6 +8,7 @@ namespace CatMerge
     {
         const string scoreCounterPrefabPath = "Prefabs/ScoreCounter";
         const string settingsButtonPrefabPath = "Prefabs/SettingsButton";
+        const string audioSliderPrefabPath = "Prefabs/AudioSlider";
 
         IConfigCatalogue _configs;
         GameObject _gameCanvasGO;      
@@ -34,16 +35,22 @@ namespace CatMerge
             GameCanvas.sortingOrder = 1;
             GameCanvas.renderMode = _startupRenderMode;
 
-            if (_configs.GameUIConfig.ScoreCounterEnabled) 
+            var prefabPaths = new List<string>();
+
+            if (_configs.GameUIConfig.ScoreCounterEnabled)
             {
-                var scoreCounterPrefab = Resources.Load(scoreCounterPrefabPath);
-                var scoreCounter = GameObject.Instantiate(scoreCounterPrefab) as GameObject;
-                scoreCounter.transform.SetParent(_gameCanvasGO.transform, false);
+                prefabPaths.Add(scoreCounterPrefabPath);
             }
 
-            var settingsButtonPrefab = Resources.Load(settingsButtonPrefabPath);
-            var settingsButton = GameObject.Instantiate(settingsButtonPrefab) as GameObject;
-            settingsButton.transform.SetParent(_gameCanvasGO.transform, false);                       
+            prefabPaths.Add(settingsButtonPrefabPath);
+            prefabPaths.Add(audioSliderPrefabPath);
+
+            foreach (var prefabPath in prefabPaths)
+            {
+                var prefab = Resources.Load(prefabPath);
+                var instance = GameObject.Instantiate(prefab) as GameObject;
+                instance.transform.SetParent(_gameCanvasGO.transform, false);
+            }
         }
 
         public static void CreateGamePopup(IPopup popup)

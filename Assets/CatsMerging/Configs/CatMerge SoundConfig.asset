@@ -12,13 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a40e4e1c25b9c947bff57744d594bf4, type: 3}
   m_Name: CatMerge SoundConfig
   m_EditorClassIdentifier: 
+  _bgmPrefab: {fileID: 7367543695915644761, guid: 08be42a2dd5165b468a5ae4525d60206, type: 3}
+  _soundPrefab: {fileID: 3702616664296139080, guid: 75ddb2ee0b1f19d4cb9ba64eb8439cad, type: 3}
   _backgroundMusic: {fileID: 8300000, guid: a0c2605ab285ebb43ae475e1093da811, type: 3}
   _lowComboSound: {fileID: 8300000, guid: d8c173e19a1b4314ba949ca0de876835, type: 3}
   _middleComboSound: {fileID: 8300000, guid: 5c88b2b8ea86a6e4b84dcb743ae64021, type: 3}
   _highComboSound: {fileID: 8300000, guid: 7c1b30f68dbaf4141a22c7c05f3cee3f, type: 3}
   _openUISound: {fileID: 8300000, guid: ddeeaab15adc8394ab1988a9b90f4efe, type: 3}
   _closeUISound: {fileID: 8300000, guid: 01efa7ab4967ab04e8957d260fdb604d, type: 3}
-  _masterVolume: 0
+  _masterVolume: 1
   _bgmVolume: 0.03
   _mergeVolume: 0.03
   _uiVolume: 0.06

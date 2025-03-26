@@ -4,6 +4,8 @@ namespace CatMerge
 {
     public interface ISoundConfig
     {
+        GameObject BGMSourcePrefab { get; }
+        GameObject SoundSourcePrefab { get; }
         AudioClip BackgroundMusic { get; }
         AudioClip LowComboSound { get; }
         AudioClip MiddleComboSound { get; }
