@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace CatMerge
 {
-    public class AudioSlider : MonoBehaviour, IInputChangedListener
+    public class AudioSlider : MonoBehaviour
     {
         public Button Button;
         public GameObject Slider;
@@ -11,13 +11,8 @@ namespace CatMerge
         public void Start()
         {
             Button.onClick.AddListener(ToggleAudioSlider);
-            Slider.GetComponent<Slider>().onValueChanged.AddListener(UpdateAudioVolume);
-            InputChangedEvent.AddListener(this);
-        }
-
-        public void OnDestroy()
-        {
-            InputChangedEvent.RemoveListener(this);
+            var audioSlider = Slider.GetComponentInChildren<Slider>();
+            audioSlider.onValueChanged.AddListener(UpdateAudioVolume);
         }
 
         public void ToggleAudioSlider()
@@ -29,11 +24,6 @@ namespace CatMerge
         {
             var sound = SoundSystem.Instance;
             sound.SetVolume(volume);
-        }
-
-        public void OnInputChanged(object sender, Vector2 vector)
-        {
-            Slider.SetActive(false);
         }
     }
 }
