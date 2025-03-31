@@ -1,28 +1,43 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
 
 namespace CatMerge
 {
-    internal class GameUISystem : IStartupSystem, IResetGameListener
-    {
+    internal class GameUISystem : IStartupSystem, IExecuteSystem, IResetGameListener
+    {       
         const string scoreCounterPrefabPath = "Prefabs/ScoreCounter";
         const string settingsButtonPrefabPath = "Prefabs/SettingsButton";
         const string audioSliderPrefabPath = "Prefabs/AudioSlider";
+        const string customCursorPrefabPath = "Prefabs/CustomCursor";
 
         IConfigCatalogue _configs;
         GameObject _gameCanvasGO;      
         RenderMode _startupRenderMode;
+        bool _customCursorShow;
 
         public static List<IPopup> GamePopups = new List<IPopup>();
         public static Canvas GameCanvas;
+
+        GameObject CustomCursor;
 
         public GameUISystem(IConfigCatalogue configs)
         {
             _configs = configs;
             _startupRenderMode = configs.GameUIConfig.GameCanvasRenderMode;
+            _customCursorShow = configs.GameUIConfig.CustomCursorEnabled;
 
             ResetGameEvent.AddListener(this);
+        }
+
+        //Ugly custom cursor hack
+        public void Execute()
+        {
+            if (_customCursorShow)
+            {
+                CustomCursor.transform.position = Input.mousePosition;
+            }
         }
 
         public void Startup()
@@ -44,6 +59,16 @@ namespace CatMerge
 
             prefabPaths.Add(settingsButtonPrefabPath);
             prefabPaths.Add(audioSliderPrefabPath);
+
+            if (_customCursorShow)
+            {
+                var prefab = Resources.Load(customCursorPrefabPath);
+                var instance = GameObject.Instantiate(prefab) as GameObject;
+                instance.transform.SetParent(_gameCanvasGO.transform, false);
+
+                CustomCursor = instance;
+                Cursor.visible = false;
+            }
 
             foreach (var prefabPath in prefabPaths)
             {

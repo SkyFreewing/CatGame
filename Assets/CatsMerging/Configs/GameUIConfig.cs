@@ -7,8 +7,10 @@ namespace CatMerge
     {
         [SerializeField] RenderMode _gameCanvasRenderMode;
         [SerializeField] bool _scoreCounterEnabled;
+        [SerializeField] bool _customCursorEnabled;
 
         public RenderMode GameCanvasRenderMode => _gameCanvasRenderMode;
         public bool ScoreCounterEnabled => _scoreCounterEnabled;
+        public bool CustomCursorEnabled => _customCursorEnabled;
     }
 }

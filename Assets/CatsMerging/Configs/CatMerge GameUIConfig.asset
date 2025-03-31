@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameCanvasRenderMode: 0
   _scoreCounterEnabled: 1
+  _customCursorEnabled: 1

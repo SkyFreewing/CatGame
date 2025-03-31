@@ -6,5 +6,6 @@ namespace CatMerge
     {
         RenderMode GameCanvasRenderMode { get; }  
         bool ScoreCounterEnabled { get; }
+        bool CustomCursorEnabled { get; }
     }
 }
